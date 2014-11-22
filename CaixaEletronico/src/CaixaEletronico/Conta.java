@@ -7,19 +7,20 @@ import java.util.Scanner;
 public class Conta {
     
     
-    protected String nomeTitular;
-    protected int conta, saques;
-    protected double saldo;
+     String nomeTitular;
+     int conta, saques;
+     int senha;
+     double saldo;
     
     Scanner entrada = new Scanner(System.in);
  
     //Métodos get e set da classe.
     public String getNome() {
-        return nomeTitular;
+        return getNomeTitular();
     }
 
     public void setNome(String nome) {
-        this.nomeTitular = nome;
+        this.setNomeTitular(nome);
     }
 
     public int getConta() {
@@ -79,6 +80,18 @@ public class Conta {
         
         }
         
+        public void transferir(Conta contaDestino, int destinatario, double valor){
+               
+            if(getSaldo() >= valor){
+                setSaldo(getSaldo() - valor);
+                    if(contaDestino.getConta()== destinatario);
+                    contaDestino.depositar(valor);
+            }
+        
+        
+            
+        }
+        
         public void iniciar(){
                 int opcao;
                 
@@ -86,7 +99,7 @@ public class Conta {
                     exibeMenu();
                     opcao = entrada.nextInt();
                     escolheOpcao(opcao);
-                }while(opcao!=4);
+                }while(opcao!=5);
             }         
                         
                 public void exibeMenu(){
@@ -95,7 +108,8 @@ public class Conta {
                         System.out.println("1 - Consultar Extrato");
                         System.out.println("2 - Realizar saque");
                         System.out.println("3 - Realizar Depósito");
-                        System.out.println("4 - Sair");
+                        System.out.println("4 - Transferir [Em manutenção]");
+                        System.out.println("5 - Sair");
                         System.out.println("Opção desejada: ");
                 
                 }
@@ -104,6 +118,7 @@ public class Conta {
                 
                 public void escolheOpcao(int opcao){
                         double valor;
+                        int destinatario;
                         
                         switch(opcao){
                             
@@ -129,6 +144,16 @@ public class Conta {
                                         break;
                             
                             case 4:
+                                        System.out.println("Qual o numero da conta destinatario: ");
+                                        destinatario = entrada.nextInt();
+                                        System.out.println("Qual o valor deseja transferir: ");
+                                        valor = entrada.nextDouble();
+                                        //transferir(minhaConta1, destinatario, valor);
+                                        
+                                        break;
+                            
+                                
+                           case 5:
                                         System.out.println("Sistema encerrado.");
                                         break;
                                 
@@ -138,4 +163,24 @@ public class Conta {
                 }
       
     }  
+
+   
+    public String getNomeTitular() {
+        return nomeTitular;
+    }
+
+   
+    public void setNomeTitular(String nomeTitular) {
+        this.nomeTitular = nomeTitular;
+    }
+
+   
+    public int getSenha() {
+        return senha;
+    }
+
+   
+    public void setSenha(int senha) {
+        this.senha = senha;
+    }
 }       
